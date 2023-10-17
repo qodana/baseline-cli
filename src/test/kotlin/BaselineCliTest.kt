@@ -80,7 +80,7 @@ class BaselineCliTest {
         }
         var printedMessage: String? = null
         val testCliPrinter: (String) -> Unit = {
-            printedMessage = it
+            if (printedMessage != null) printedMessage += it else printedMessage = it
         }
 
         // Act
@@ -90,8 +90,8 @@ class BaselineCliTest {
 
         // Assert
         assertNotNull(printedMessage)
-        assertTrue(printedMessage!!.startsWith("Error reading baseline report"))
-        assertEquals(ERROR_EXIT, exitCode)
+        assertTrue(printedMessage!!.contains("Error reading baseline report"))
+        assertEquals(0, exitCode)
     }
 
     @Test

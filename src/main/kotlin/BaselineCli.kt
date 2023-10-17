@@ -47,7 +47,7 @@ object BaselineCli {
             baseline = SarifUtil.readReport(baselinePath)
         } catch (e: Exception) {
             cliPrinter("Error reading baseline report: ${e.message}")
-            return ERROR_EXIT
+            return compareThreshold(sarifReport, failThreshold, printer, cliPrinter)
         }
         val baselineCalculation = BaselineCalculation.compare(sarifReport, baseline, BaselineCalculation.Options())
         SarifUtil.writeReport(sarifPath, sarifReport)
